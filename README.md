@@ -1,10 +1,15 @@
-SKMZ [![Build Status](https://travis-ci.com/Shpota/skmz.svg?branch=master)](https://travis-ci.com/Shpota/skmz) [![](https://img.shields.io/codecov/c/github/Shpota/skmz?color=green&logo=test%20coverage)](https://codecov.io/gh/Shpota/skmz)
+SKMZ [![](https://img.shields.io/codecov/c/github/Shpota/skmz?color=green&logo=test%20coverage)](https://codecov.io/gh/Shpota/skmz)
 ====
+
+> ⚠ Disclaimer
+>
+> I created this project a while ago, and it might need to be updated. Check out **[Goxygen](https://github.com/Shpota/goxygen)** , a tool for creating modern web projects with Go and React, Vue or Angular.
+
 
 A web application that allows to query programmers
 with their skills via a **GraphQL** API. The
 application is implemented with **Go** and 
-**[gqlgen](https://github.com/99designs/gqlgen)**
+**gqlgen**
 on the backend side and **React** on the front end
 side. **MongoDB** is used as a database.
 
