@@ -2,6 +2,10 @@ package main
 
 import (
 	"context"
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/99designs/gqlgen/handler"
 	"github.com/shpota/skmz/cors"
 	"github.com/shpota/skmz/db"
@@ -9,9 +13,6 @@ import (
 	"github.com/shpota/skmz/gql/gen"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"net/http"
-	"os"
 )
 
 func main() {
@@ -25,7 +26,7 @@ func main() {
 		handler.Playground("GraphQL playground", "/query"),
 	)
 	http.Handle("/", http.FileServer(http.Dir("/webapp")))
-	err = http.ListenAndServe(":8080", nil)
+	err = http.ListenAndServe(":80", nil)
 	log.Println(err)
 }
 
@@ -41,11 +42,21 @@ func gqlHandler(db db.DB) http.HandlerFunc {
 }
 
 func clientOptions() *options.ClientOptions {
-	host := "db"
-	if os.Getenv("profile") != "prod" {
-		host = "localhost"
+
+	if os.Getenv("profile") == "prod" {
+		host := os.Getenv("DB_HOST")
+		port := os.Getenv("DB_PORT")
+		user := os.Getenv("DB_USER")
+		password := os.Getenv("DB_PASSWORD")
+		opts := os.Getenv("DB_OPTS")
+		return options.Client().ApplyURI(
+			"mongodb://" + user + ":" + password + "@" + host + ":" + port + "/?" + opts,
+		)
+
+	} else {
+		return options.Client().ApplyURI(
+			"mongodb://localhost:27017",
+		)
 	}
-	return options.Client().ApplyURI(
-		"mongodb://" + host + ":27017",
-	)
+
 }
