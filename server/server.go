@@ -42,7 +42,7 @@ func gqlHandler(db db.DB) http.HandlerFunc {
 }
 
 func clientOptions() *options.ClientOptions {
-	host := os.Getenv("DB_HOSTa")
+	host := os.Getenv("DB_HOST")
 	port := os.Getenv("DB_PORT")
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
