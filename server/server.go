@@ -42,21 +42,12 @@ func gqlHandler(db db.DB) http.HandlerFunc {
 }
 
 func clientOptions() *options.ClientOptions {
-
-	if os.Getenv("profile") == "prod" {
-		host := os.Getenv("DB_HOST")
-		port := os.Getenv("DB_PORT")
-		user := os.Getenv("DB_USER")
-		password := os.Getenv("DB_PASSWORD")
-		opts := os.Getenv("DB_OPTS")
-		return options.Client().ApplyURI(
-			"mongodb://" + user + ":" + password + "@" + host + ":" + port + "/?" + opts,
-		)
-
-	} else {
-		return options.Client().ApplyURI(
-			"mongodb://localhost:27017",
-		)
-	}
-
+	host := os.Getenv("DB_HOST")
+	port := os.Getenv("DB_PORT")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	opts := os.Getenv("DB_OPTS")
+	return options.Client().ApplyURI(
+		"mongodb://" + user + ":" + password + "@" + host + ":" + port + "/?" + opts,
+	)
 }
